@@ -15,7 +15,7 @@ SET ANSI_WARNINGS OFF
 IF @Action = ''
 BEGIN
 
-Exec [dbo].[SP_HBAnalysis_Feb21] @Action = '',@Str = '',@Id = 0; 
+Exec [dbo].[SP_HBAnalysis_Jul21] @Action = '',@Str = '',@Id = 0;
 
 END
 

@@ -3,12 +3,12 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[dbo].[SP_HBAnalysis_Feb21]') AND OBJECTPROPERTY(ID, N'ISPROCEDURE') = 1)
-DROP PROCEDURE [dbo].[SP_HBAnalysis_Feb21]
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[dbo].[SP_HBAnalysis_Mar21]') AND OBJECTPROPERTY(ID, N'ISPROCEDURE') = 1)
+DROP PROCEDURE [dbo].[SP_HBAnalysis_Mar21]
 GO
-CREATE PROCEDURE [dbo].[SP_HBAnalysis_Feb21](@Action NVARCHAR(100), @Str NVARCHAR(100), @Id BIGINT)  
+CREATE PROCEDURE [dbo].[SP_HBAnalysis_Mar21](@Action NVARCHAR(100), @Str NVARCHAR(100), @Id BIGINT)  
 /*  
-Exec [dbo].[SP_HBAnalysis_Feb21] @Action = '',@Str = '',@Id = 0;  
+Exec [dbo].[SP_HBAnalysis_Mar21] @Action = '',@Str = '',@Id = 0;  
 */  
 AS  
 BEGIN  
@@ -50,7 +50,7 @@ WHERE S.CheckInDt = S.CheckOutDt;
   
 DELETE #TEMP2 WHERE  
 Stay_Month NOT IN ('Apr-2019', 'May-2019', 'Jun-2019', 'Jul-2019', 'Aug-2019', 'Sep-2019', 'Oct-2019', 'Nov-2019', 'Dec-2019', 'Jan-2020', 'Feb-2020', 'Mar-2020',
-                   'Apr-2020', 'May-2020', 'Jun-2020', 'Jul-2020', 'Aug-2020', 'Sep-2020', 'Oct-2020', 'Nov-2020', 'Dec-2020', 'Jan-2021', 'Feb-2021');
+                   'Apr-2020', 'May-2020', 'Jun-2020', 'Jul-2020', 'Aug-2020', 'Sep-2020', 'Oct-2020', 'Nov-2020', 'Dec-2020', 'Jan-2021', 'Feb-2021', 'Mar-2021');
   
 /* ----- Daily Tracking Report Start ----- */  
   
@@ -106,7 +106,7 @@ SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TEMPDAILYREPORTCOUNT T  
 WHERE PropertyCategory IN ('External','C P P') AND MasterPropertyId NOT IN (1,0)  
 GROUP BY MasterPropertyId  
-ORDER BY SUM([Feb-2021]) DESC;  
+ORDER BY SUM([Mar-2021]) DESC;  
   
 CREATE TABLE #TDR(MasterPropertyName NVARCHAR(100), MasterPropertyId BIGINT, Flg INT,  
 [Apr-2019] INT, [May-2019] INT, [Jun-2019] INT, [Jul-2019] INT, [Aug-2019] INT, [Sep-2019] INT, [Oct-2019] INT, [Nov-2019] INT, [Dec-2019] INT,  
@@ -619,7 +619,7 @@ SELECT * FROM #GTVTOTALCLIENT;
 /*----- Result -----*/  
   
 SELECT '' AS C1,  
-'Feb-21' AS C36, 'Jan-21' AS C35, 'Dec-20' AS C34, 'Nov-20' AS C33, 'Oct-20' AS C32,
+'Mar-21' AS C37, 'Feb-21' AS C36, 'Jan-21' AS C35, 'Dec-20' AS C34, 'Nov-20' AS C33, 'Oct-20' AS C32,
 'Sep-20' AS C31, 'Aug-20' AS C30, 'Jul-20' AS C29, 'Jun-20' AS C28, 'May-20' AS C27, 'Apr-20' AS C26,  
 'Mar-20' AS C25, 'Feb-20' AS C24, 'Jan-20' AS C23, 'Dec-19' AS C22, 'Nov-19' AS C21, 'Oct-19' AS C20,  
 'Sep-19' AS C19, 'Aug-19' AS C18, 'Jul-19' AS C17, 'Jun-19' AS C16, 'May-19' AS C15, 'Apr-19' AS C14;  
@@ -629,27 +629,27 @@ SELECT '' AS C1,
 SELECT 'Property ( Hotel Chain ) - Room Nights ( Value in Nos )' AS Title;  
 SELECT 'PropertyName' AS C1;  
 SELECT MasterPropertyName AS PropertyName,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TDR T  
-ORDER BY Flg ASC, [Feb-2021] DESC, MasterPropertyName ASC;  
+ORDER BY Flg ASC, [Mar-2021] DESC, MasterPropertyName ASC;  
   
 /* -- TABLE 3 & 4 */  
   
 SELECT 'Clients - Room Nights ( Value in Nos )' AS Title;  
 SELECT 'Top Clients' AS C1;  
 SELECT MasterClientName,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TDRClient T  
-ORDER BY Flg ASC, [Feb-2021] DESC, MasterClientName ASC;  
+ORDER BY Flg ASC, [Mar-2021] DESC, MasterClientName ASC;  
   
 /* -- TABLE 5 & 6 */  
   
 SELECT 'Room Nights by Property Category ( Value in Nos )' AS Title;  
 SELECT 'Property Category' AS C1;  
 SELECT PropertyCategory,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TDRCatgy  
 ORDER BY Flg, PropertyCategory;  
@@ -659,7 +659,7 @@ ORDER BY Flg, PropertyCategory;
 SELECT 'Margin from External Properties by Property Category ( Value in Rs. ( Lacs) )' AS Title;  
 SELECT 'Property Category' AS C1;  
 SELECT PropertyCategory,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TDRMARKUP_Category_New  
 ORDER BY Flg, PropertyCategory;  
@@ -669,17 +669,17 @@ ORDER BY Flg, PropertyCategory;
 SELECT 'External Margin Analysis by Client ( Value in Rs. ( Lacs) )' AS Title;  
 SELECT 'Top Clients' AS C1;  
 SELECT MasterClientName,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TDRMARKUP_New  
-ORDER BY Flg ASC, [Feb-2021] DESC, MasterClientName ASC;  
+ORDER BY Flg ASC, [Mar-2021] DESC, MasterClientName ASC;  
   
 /* -- TABLE 11 & 12 */  
   
 SELECT 'GTV by Property Category (Excluding Guest House) ( Value in Rs. ( Lacs) )' AS Title;  
 SELECT 'Property Category' AS C1;  
 SELECT PropertyCategory,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #GTVTOTAL  
 ORDER BY MarkupFlg;  
@@ -689,10 +689,10 @@ ORDER BY MarkupFlg;
 SELECT 'GTV by Client Wise (Excluding Guest House) ( Value in Rs. ( Lacs) )' AS Title;  
 SELECT 'Top Clients' AS C1;  
 SELECT MasterClientName,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #GTVTOTALCLIENT  
-ORDER BY MarkupFlg ASC, [Feb-2021] DESC, MasterClientName ASC;  
+ORDER BY MarkupFlg ASC, [Mar-2021] DESC, MasterClientName ASC;  
   
 /*----- Daily Tracking Report End -----*/  
   
@@ -1390,7 +1390,7 @@ FROM #TEMPMONTH16 T
 LEFT OUTER JOIN WRBHBMasterClientManagement M WITH(NOLOCK)ON T.MasterClientId = M.Id  
 WHERE Markup = 0 AND T.MasterClientId IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE Active = 1)  
 GROUP BY T.MasterClientId, M.ClientName  
-ORDER BY SUM([Feb-2021]) DESC;  
+ORDER BY SUM([Mar-2021]) DESC;  
   
 INSERT INTO #TEMPMONTH117_ClientWise  
 SELECT 0, 'Other Clients', 3,  
@@ -1421,7 +1421,7 @@ FROM #TEMPMONTH16;
 /* Result */  
   
 SELECT '' AS C1,
-'Feb-21' AS C35, 'Jan-21' AS C34, 'Dec-20' AS C33, 'Nov-20' AS C32, 'Oct-20' AS C31,
+'Mar-21' AS C36, 'Feb-21' AS C35, 'Jan-21' AS C34, 'Dec-20' AS C33, 'Nov-20' AS C32, 'Oct-20' AS C31,
 'Sep-20' AS C30, 'Aug-20' AS C29, 'Jul-20' AS C28, 'Jun-20' AS C27, 'May-20' AS C26, 'Apr-20' AS C25,  
 'Tot(2018)-Avg' AS Total,  
 'Mar-20' AS C24, 'Feb-20' AS C23, 'Jan-20' AS C22, 'Dec-19' AS C22, 'Nov-19' AS C21, 'Oct-19' AS C20, 
@@ -1432,7 +1432,7 @@ SELECT '' AS C1,
 SELECT 'HB Universe' AS Title;  
   
 SELECT '', Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH4   
@@ -1446,7 +1446,7 @@ SELECT 'Room night' AS Title;
 /* Table 2.1 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH11  
@@ -1456,7 +1456,7 @@ ORDER BY Flg;
 /* Table 2.2 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH13  
@@ -1466,7 +1466,7 @@ ORDER BY Flg;
 /* Table 2.3 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH13  
@@ -1476,7 +1476,7 @@ ORDER BY Flg;
 /* Table 2.4 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH13  
@@ -1490,7 +1490,7 @@ SELECT 'GTV' AS Title;
 /* TABLE 3.1 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH117  
@@ -1500,7 +1500,7 @@ ORDER BY Flg;
 /* TABLE 3.2 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH117  
@@ -1510,7 +1510,7 @@ ORDER BY Flg;
 /* TABLE 3.3 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH117  
@@ -1520,7 +1520,7 @@ ORDER BY Flg;
 /* TABLE 3.4 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH117  
@@ -1530,7 +1530,7 @@ ORDER BY Flg;
 /* TABLE 3.5 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH117  
@@ -1540,7 +1540,7 @@ ORDER BY Flg;
 /* TABLE 3.6 */  
   
 SELECT Title1, Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH117  
@@ -1554,7 +1554,8 @@ ORDER BY Flg;
 SELECT 'Ratio %' AS Title;  
   
 SELECT '' AS Title1, REPLACE(T1.Title2,' ( Value in Rs Lacs )','') AS Title2,
-CASE WHEN T2.[Feb-2021] > 0 THEN CAST(CAST(ROUND(((T1.[Feb-2021] * 10000) / T2.[Feb-2021]) * 0.01, 0) AS INT) AS VARCHAR)+'%' ELSE '0%' END AS [Feb-2021],
+CASE WHEN T2.[Mar-2021] > 0 THEN CAST(CAST(ROUND(((T1.[Mar-2021] * 10000) / T2.[Mar-2021]) * 0.01, 0) AS INT) AS VARCHAR)+'%' ELSE '0%' END AS [Mar-2021],
+CAST(CAST(ROUND(((T1.[Feb-2021] * 10000) / T2.[Feb-2021]) * 0.01, 0) AS INT) AS VARCHAR)+'%' AS [Feb-2021],
 CAST(CAST(ROUND(((T1.[Jan-2021] * 10000) / T2.[Jan-2021]) * 0.01, 0) AS INT) AS VARCHAR)+'%' AS [Jan-2021],
 CAST(CAST(ROUND(((T1.[Dec-2020] * 10000) / T2.[Dec-2020]) * 0.01, 0) AS INT) AS VARCHAR)+'%' AS [Dec-2020],
 CAST(CAST(ROUND(((T1.[Nov-2020] * 10000) / T2.[Nov-2020]) * 0.01, 0) AS INT) AS VARCHAR)+'%' AS [Nov-2020],
@@ -1590,7 +1591,8 @@ ORDER BY T1.Flg;
 SELECT 'Opportunity %' AS Title;  
   
 SELECT '' AS Title1, REPLACE(T1.Title2,' ( Value in Rs Lacs )','') AS Title2,
-CASE WHEN T2.[Feb-2021] > 0 THEN CAST(CAST(ROUND(((T1.[Feb-2021] * 10000) / T2.[Feb-2021]) * 0.01, 0) AS INT) AS VARCHAR)+'%' ELSE '0%' END AS [Feb-2021],
+CASE WHEN T2.[Mar-2021] > 0 THEN CAST(CAST(ROUND(((T1.[Mar-2021] * 10000) / T2.[Mar-2021]) * 0.01, 0) AS INT) AS VARCHAR)+'%' ELSE '0%' END AS [Mar-2021],
+CAST(CAST(ROUND(((T1.[Feb-2021] * 10000) / T2.[Feb-2021]) * 0.01, 0) AS INT) AS VARCHAR)+'%' AS [Feb-2021],
 CAST(CAST(ROUND(((T1.[Jan-2021] * 10000) / T2.[Jan-2021]) * 0.01, 0) AS INT) AS VARCHAR)+'%' AS [Jan-2021],
 CAST(CAST(ROUND(((T1.[Dec-2020] * 10000) / T2.[Dec-2020]) * 0.01, 0) AS INT) AS VARCHAR)+'%' AS [Dec-2020],
 CAST(CAST(ROUND(((T1.[Nov-2020] * 10000) / T2.[Nov-2020]) * 0.01, 0) AS INT) AS VARCHAR)+'%' AS [Nov-2020],
@@ -1628,7 +1630,7 @@ SELECT 'Net Revenue' AS Title;
 /* TABLE 5.1 */  
   
 SELECT '' AS Title1, Title AS Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #TEMPMONTH25  
@@ -1641,7 +1643,8 @@ SELECT 'Client Wise Opportunity %' AS Title;
 /* TABLE 6.1 */  
   
 SELECT '' AS Title1, T1.MasterClientName AS Title2,
-CASE WHEN T2.[Feb-2021] > 0 THEN CAST(ROUND(((T1.[Feb-2021] * 10000) / T2.[Feb-2021]) * 0.01, 0) AS INT) ELSE 0 END AS [Feb-2021],
+CASE WHEN T2.[Mar-2021] > 0 THEN CAST(ROUND(((T1.[Mar-2021] * 10000) / T2.[Mar-2021]) * 0.01, 0) AS INT) ELSE 0 END AS [Mar-2021],
+CAST(ROUND(((T1.[Feb-2021] * 10000) / T2.[Feb-2021]) * 0.01, 0) AS INT) AS [Feb-2021],
 CAST(ROUND(((T1.[Jan-2021] * 10000) / T2.[Jan-2021]) * 0.01, 0) AS INT) AS [Jan-2021],
 CAST(ROUND(((T1.[Dec-2020] * 10000) / T2.[Dec-2020]) * 0.01, 0) AS INT) AS [Dec-2020],
 CAST(ROUND(((T1.[Nov-2020] * 10000) / T2.[Nov-2020]) * 0.01, 0) AS INT) AS [Nov-2020],
@@ -1683,7 +1686,7 @@ SELECT T.MasterClientId, T.BookingId, T.BookedDt FROM #TEMP1 T
 WHERE  
 PropertyCategory IN ('External', 'C P P') AND  
 T.BookedDt IN ('Apr-2019', 'May-2019', 'Jun-2019', 'Jul-2019', 'Aug-2019', 'Sep-2019', 'Oct-2019', 'Nov-2019', 'Dec-2019', 'Jan-2020', 'Feb-2020', 'Mar-2020',  
-               'Apr-2020', 'May-2020', 'Jun-2020', 'Jul-2020', 'Aug-2020', 'Sep-2020', 'Oct-2020', 'Nov-2020', 'Dec-2020', 'Jan-2021', 'Feb-2021')
+               'Apr-2020', 'May-2020', 'Jun-2020', 'Jul-2020', 'Aug-2020', 'Sep-2020', 'Oct-2020', 'Nov-2020', 'Dec-2020', 'Jan-2021', 'Feb-2021', 'Mar-2021')
 GROUP BY T.MasterClientId, T.BookingId, T.BookedDt;  
   
 CREATE TABLE #TMP_Booking(BookingCount INT, BookedDt VARCHAR(100), MasterClientId BIGINT);  
@@ -1719,7 +1722,7 @@ FROM #Temp_BookingCount T
 LEFT OUTER JOIN WRBHBMasterClientManagement M WITH(NOLOCK)ON T.MasterClientId = M.Id  
 WHERE T.MasterClientId IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE Active = 1)  
 GROUP BY T.MasterClientId, M.ClientName  
-ORDER BY SUM(ISNULL([Feb-2021], 0)) DESC;  
+ORDER BY SUM(ISNULL([Mar-2021], 0)) DESC;  
   
 INSERT INTO #Temp_BookingCnt  
 SELECT 0, 'Other Clients', 3,  
@@ -1741,7 +1744,7 @@ SELECT T.MasterClientId, T.BookingId, T.BookedDt FROM #TEMP1 T
 WHERE  
 PropertyCategory IN ('G H') AND  
 T.BookedDt IN ('Apr-2019', 'May-2019', 'Jun-2019', 'Jul-2019', 'Aug-2019', 'Sep-2019', 'Oct-2019', 'Nov-2019', 'Dec-2019', 'Jan-2020', 'Feb-2020', 'Mar-2020',  
-               'Apr-2020', 'May-2020', 'Jun-2020', 'Jul-2020', 'Aug-2020', 'Sep-2020', 'Oct-2020', 'Nov-2020', 'Dec-2020', 'Jan-2021', 'Feb-2021')
+               'Apr-2020', 'May-2020', 'Jun-2020', 'Jul-2020', 'Aug-2020', 'Sep-2020', 'Oct-2020', 'Nov-2020', 'Dec-2020', 'Jan-2021', 'Feb-2021', 'Mar-2021')
 GROUP BY T.MasterClientId, T.BookingId, T.BookedDt;  
   
 CREATE TABLE #TMP_Booking_MGH(BookingCount INT, BookedDt VARCHAR(100), MasterClientId BIGINT);  
@@ -1771,7 +1774,7 @@ FROM #Temp_BookingCount_MGH T
 LEFT OUTER JOIN WRBHBMasterClientManagement M WITH(NOLOCK)ON T.MasterClientId = M.Id  
 WHERE T.MasterClientId IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE Active = 1)  
 GROUP BY T.MasterClientId, M.ClientName  
-ORDER BY SUM(ISNULL([Feb-2021], 0)) DESC;  
+ORDER BY SUM(ISNULL([Mar-2021], 0)) DESC;  
   
 INSERT INTO #Temp_BookingCnt  
 SELECT 0, 'Other Clients', 7,  
@@ -1792,7 +1795,7 @@ DECLARE @MasterClinetId BIGINT;
 SELECT TOP 1 @MasterClinetId = MasterClientId FROM #Temp_BookingCnt WHERE Flg = 2 ORDER BY Id;  
   
 SELECT (CASE WHEN MasterClientId = @MasterClinetId THEN 'External & CPP Booking Count' ELSE '' END) AS Title1, MasterClientName AS Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #Temp_BookingCnt  
@@ -1804,7 +1807,7 @@ ORDER BY Flg, Id;
 SELECT TOP 1 @MasterClinetId = MasterClientId FROM #Temp_BookingCnt WHERE Flg = 6 ORDER BY Id;  
   
 SELECT (CASE WHEN MasterClientId = @MasterClinetId THEN 'GH Booking Count' ELSE '' END) AS Title1, MasterClientName AS Title2,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
 CAST(ROUND(CAST([Mar-2020] + [Feb-2020] + [Jan-2020] + [Dec-2019] + [Nov-2019] + [Oct-2019] + [Sep-2019] + [Aug-2019] + [Jul-2019] + [Jun-2019] + [May-2019] + [Apr-2019] AS DECIMAL) / 12, 0) AS INT) AS Total,  
 [Mar-2020], [Feb-2020], [Jan-2020], [Dec-2019], [Nov-2019], [Oct-2019], [Sep-2019], [Aug-2019], [Jul-2019], [Jun-2019], [May-2019], [Apr-2019]  
 FROM #Temp_BookingCnt  
@@ -1815,7 +1818,7 @@ ORDER BY Flg, Id;
   
 /* Revnue Report - #Start */    
 SELECT '' AS C99,
-'Feb-21' AS C12, 'Jan-21' AS C11, 'Dec-20' AS C10, 'Nov-20' AS C09, 'Oct-20' AS C08, 'Sep-20' AS C07, 'Aug-20' AS C18, 'Jul-20' AS C17, 'Jun-20' AS C16, 'May-20' AS C15, 'Apr-20' AS C14, 'Mar-20' AS C13;
+'Mar-21' AS C13, 'Feb-21' AS C12, 'Jan-21' AS C11, 'Dec-20' AS C10, 'Nov-20' AS C09, 'Oct-20' AS C08, 'Sep-20' AS C07, 'Aug-20' AS C18, 'Jul-20' AS C17, 'Jun-20' AS C16, 'May-20' AS C15, 'Apr-20' AS C14;
   
 CREATE TABLE #Fee_BookingDtls(BookingId BIGINT, CheckInDt DATE, CheckOutDt DATE, GuestId BIGINT, RoomCaptured BIGINT, PropertyCategory NVARCHAR(100),  
 ClientId BIGINT, MasterClientId BIGINT, Booked_Month VARCHAR(100), TransactionFee DECIMAL(27, 2), TransactionFee_Type NVARCHAR(100), Stay_Days INT);  
@@ -1898,43 +1901,40 @@ END
 /*SELECT * FROM #TransactionFee;RETURN;*/  
   
 SELECT   ClientId, PropertyCategory, MasterClientId,  
-         [Mar-2020], [Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021]
+         [Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021], [Mar-2021]
 INTO #TransactionFee_Month_Split  
 FROM #TransactionFee  
 PIVOT  
 (  
        SUM(TransactionFee)  
        FOR Booked_Month IN   
-       ([Mar-2020], [Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021])
+       ([Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021], [Mar-2021])
 ) AS P;  
   
 CREATE TABLE #TransactionFee_Dtls(ClientId BIGINT, PropertyCategory NVARCHAR(100), MasterClientId BIGINT,
-[Mar-2020] DECIMAL(27, 2),  
 [Apr-2020] DECIMAL(27, 2), [May-2020] DECIMAL(27, 2), [Jun-2020] DECIMAL(27, 2), [Jul-2020] DECIMAL(27, 2), [Aug-2020] DECIMAL(27, 2), [Sep-2020] DECIMAL(27, 2),
-[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2));
+[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2), [Mar-2021] DECIMAL(27, 2));
   
 INSERT INTO #TransactionFee_Dtls  
 SELECT ClientId, PropertyCategory, MasterClientId,
-ISNULL([Mar-2020], 0), ISNULL([Apr-2020], 0), ISNULL([May-2020], 0), ISNULL([Jun-2020], 0),
-ISNULL([Jul-2020], 0), ISNULL([Aug-2020], 0), ISNULL([Sep-2020], 0), ISNULL([Oct-2020], 0), ISNULL([Nov-2020], 0), ISNULL([Dec-2020], 0), ISNULL([Jan-2021], 0), ISNULL([Feb-2021], 0)
+ISNULL([Apr-2020], 0), ISNULL([May-2020], 0), ISNULL([Jun-2020], 0),
+ISNULL([Jul-2020], 0), ISNULL([Aug-2020], 0), ISNULL([Sep-2020], 0), ISNULL([Oct-2020], 0), ISNULL([Nov-2020], 0), ISNULL([Dec-2020], 0), ISNULL([Jan-2021], 0), ISNULL([Feb-2021], 0), ISNULL([Mar-2021], 0)
 FROM #TransactionFee_Month_Split;  
   
 CREATE TABLE #Revenue_Table1(Title NVARCHAR(100), Flg INT,
-[Mar-2020] DECIMAL(27, 2),  
 [Apr-2020] DECIMAL(27, 2), [May-2020] DECIMAL(27, 2), [Jun-2020] DECIMAL(27, 2), [Jul-2020] DECIMAL(27, 2), [Aug-2020] DECIMAL(27, 2), [Sep-2020] DECIMAL(27, 2),
-[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2));
+[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2), [Mar-2021] DECIMAL(27, 2));
   
 INSERT INTO #Revenue_Table1  
 SELECT 'Total Transaction Fee' AS Title, 1,
-ROUND(SUM([Mar-2020]) * 0.00001, 2),  
 ROUND(SUM([Apr-2020]) * 0.00001, 2), ROUND(SUM([May-2020]) * 0.00001, 2), ROUND(SUM([Jun-2020]) * 0.00001, 2), ROUND(SUM([Jul-2020]) * 0.00001, 2),
 ROUND(SUM([Aug-2020]) * 0.00001, 2), ROUND(SUM([Sep-2020]) * 0.00001, 2), ROUND(SUM([Oct-2020]) * 0.00001, 2), ROUND(SUM([Nov-2020]) * 0.00001, 2),
-ROUND(SUM([Dec-2020]) * 0.00001, 2), ROUND(SUM([Jan-2021]) * 0.00001, 2), ROUND(SUM([Feb-2021]) * 0.00001, 2)
+ROUND(SUM([Dec-2020]) * 0.00001, 2), ROUND(SUM([Jan-2021]) * 0.00001, 2), ROUND(SUM([Feb-2021]) * 0.00001, 2), ROUND(SUM([Mar-2021]) * 0.00001, 2)
 FROM #TransactionFee_Dtls;  
   
 INSERT INTO #Revenue_Table1  
 SELECT 'Total Hotel Commissions' AS Title, 2,  
-[Mar-2020], [Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021]
+[Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021], [Mar-2021]
 FROM #TDRMARKUP_New  
 WHERE  
 MasterClientName = 'Total' AND  
@@ -1943,97 +1943,81 @@ Flg = 3;
   
 INSERT INTO #Revenue_Table1  
 SELECT 'Total', 3,
-SUM([Mar-2020]),
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #Revenue_Table1;  
   
 /* TABLE 1 */  
 SELECT 'Revenue In Rs (Lakhs)' AS Title;  
-SELECT Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]
+SELECT Title, [Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #Revenue_Table1  
 ORDER BY Flg;  
   
   
 CREATE TABLE #RoomNightCount(Title NVARCHAR(100), Flg INT,
-[Mar-2020] INT,  
-[Apr-2020] INT, [May-2020] INT, [Jun-2020] INT, [Jul-2020] INT, [Aug-2020] INT, [Sep-2020] INT, [Oct-2020] INT, [Nov-2020] INT, [Dec-2020] INT, [Jan-2021] INT, [Feb-2021] INT);
+[Apr-2020] INT, [May-2020] INT, [Jun-2020] INT, [Jul-2020] INT, [Aug-2020] INT, [Sep-2020] INT, [Oct-2020] INT, [Nov-2020] INT, [Dec-2020] INT, [Jan-2021] INT, [Feb-2021] INT, [Mar-2021] INT);
   
 INSERT INTO #RoomNightCount  
-SELECT 'G H Room Nights', 1,  
-[Mar-2020],  
-[Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021]
+SELECT 'G H Room Nights', 1,
+[Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021], [Mar-2021]
 FROM #TDRCatgy  
 WHERE PropertyCategory = 'G H';  
   
 INSERT INTO #RoomNightCount  
-SELECT 'Hotel Room Nights', 2,  
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SELECT 'Hotel Room Nights', 2,
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TDRCatgy  
 WHERE PropertyCategory IN ('C P P', 'External');  
   
 INSERT INTO #RoomNightCount  
 SELECT 'Total Room Nights', 3,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #RoomNightCount;  
   
 /* TABLE 2 */  
 SELECT 'Room Nights' AS Title;  
-SELECT Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]
+SELECT Title, [Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #RoomNightCount  
 ORDER BY Flg;  
   
   
 CREATE TABLE #BookingCount(Title NVARCHAR(100), Flg INT,
-[Mar-2020] INT, [Apr-2020] INT, [May-2020] INT, [Jun-2020] INT, [Jul-2020] INT, [Aug-2020] INT, [Sep-2020] INT, [Oct-2020] INT, [Nov-2020] INT, [Dec-2020] INT, [Jan-2021] INT, [Feb-2021] INT);
+[Apr-2020] INT, [May-2020] INT, [Jun-2020] INT, [Jul-2020] INT, [Aug-2020] INT, [Sep-2020] INT, [Oct-2020] INT, [Nov-2020] INT, [Dec-2020] INT, [Jan-2021] INT, [Feb-2021] INT, [Mar-2021] INT);
   
 INSERT INTO #BookingCount  
 SELECT 'No. of Guest House Bookings', 1,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #Temp_BookingCnt  
 WHERE Flg IN (6, 7);/*GH*/  
   
 INSERT INTO #BookingCount  
 SELECT 'No. Of Hotel Bookings', 2,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #Temp_BookingCnt  
 WHERE Flg IN (2, 3);/*EXP & CPP*/  
   
 INSERT INTO #BookingCount  
 SELECT 'Total Bookings', 3,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #BookingCount;  
   
 /* TABLE 3 */  
 SELECT 'No. Of Bookings' AS Title;  
-SELECT Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]
+SELECT Title, [Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #BookingCount  
-ORDER BY Flg ASC, [Feb-2021] DESC;  
+ORDER BY Flg ASC, [Mar-2021] DESC;  
   
 /* TABLE 4 */  
 SELECT 'Hotel Commissions In Rs (Lakhs)' AS Title;  
 SELECT MasterClientName,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TDRMARKUP_New  
-ORDER BY Flg ASC, [Feb-2021] DESC, MasterClientName ASC;  
+ORDER BY Flg ASC, [Mar-2021] DESC, MasterClientName ASC;  
   
 /* Transaction Fee for Guest houses */  
   
 CREATE TABLE #TransactionFee_Output(ClientName NVARCHAR(100), Flg INT,
-[Mar-2020] DECIMAL(27, 2),  
 [Apr-2020] DECIMAL(27, 2), [May-2020] DECIMAL(27, 2), [Jun-2020] DECIMAL(27, 2), [Jul-2020] DECIMAL(27, 2), [Aug-2020] DECIMAL(27, 2), [Sep-2020] DECIMAL(27, 2),
-[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2));
+[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2), [Mar-2021] DECIMAL(27, 2));
   
 IF EXISTS(SELECT NULL FROM #TransactionFee_Dtls T  
 LEFT OUTER JOIN WRBHBMasterClientManagement MC WITH(NOLOCK)ON MC.Id = T.MasterClientId  
@@ -2043,8 +2027,7 @@ T.MasterClientId IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE Acti
 BEGIN  
 INSERT INTO #TransactionFee_Output  
 SELECT MC.ClientName, 1,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TransactionFee_Dtls T  
 LEFT OUTER JOIN WRBHBMasterClientManagement MC WITH(NOLOCK)ON MC.Id = T.MasterClientId  
 WHERE  
@@ -2068,8 +2051,7 @@ T.MasterClientId NOT IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE 
 BEGIN  
 INSERT INTO #TransactionFee_Output  
 SELECT 'Other Clients', 2,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TransactionFee_Dtls  
 WHERE  
 PropertyCategory = 'G H' AND  
@@ -2083,8 +2065,7 @@ END
   
 INSERT INTO #TransactionFee_Output  
 SELECT 'Total', 3,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TransactionFee_Dtls  
 WHERE  
 PropertyCategory = 'G H';  
@@ -2101,8 +2082,7 @@ T.MasterClientId IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE Acti
 BEGIN  
 INSERT INTO #TransactionFee_Output  
 SELECT MC.ClientName, 4,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TransactionFee_Dtls T  
 LEFT OUTER JOIN WRBHBMasterClientManagement MC WITH(NOLOCK)ON MC.Id = T.MasterClientId  
 WHERE  
@@ -2125,8 +2105,7 @@ T.MasterClientId NOT IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE 
 BEGIN  
 INSERT INTO #TransactionFee_Output  
 SELECT 'Other Clients', 5,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TransactionFee_Dtls  
 WHERE  
 PropertyCategory <> 'G H' AND  
@@ -2140,8 +2119,7 @@ END
   
 INSERT INTO #TransactionFee_Output  
 SELECT 'Total', 6,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TransactionFee_Dtls  
 WHERE  
 PropertyCategory <> 'G H';  
@@ -2149,46 +2127,39 @@ PropertyCategory <> 'G H';
 /* Transaction Fee For hotels */  
   
 CREATE TABLE #TransactionFee_Output_RoundOff(Title NVARCHAR(100), Flg INT,
-[Mar-2020] DECIMAL(27, 2),  
 [Apr-2020] DECIMAL(27, 2), [May-2020] DECIMAL(27, 2), [Jun-2020] DECIMAL(27, 2), [Jul-2020] DECIMAL(27, 2), [Aug-2020] DECIMAL(27, 2), [Sep-2020] DECIMAL(27, 2),
-[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2));
+[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2), [Mar-2021] DECIMAL(27, 2));
   
 INSERT INTO #TransactionFee_Output_RoundOff  
 SELECT ClientName, Flg,
-ROUND([Mar-2020] * 0.00001, 2),  
 ROUND([Apr-2020] * 0.00001, 2), ROUND([May-2020] * 0.00001, 2), ROUND([Jun-2020] * 0.00001, 2), ROUND([Jul-2020] * 0.00001, 2),
 ROUND([Aug-2020] * 0.00001, 2), ROUND([Sep-2020] * 0.00001, 2), ROUND([Oct-2020] * 0.00001, 2), ROUND([Nov-2020] * 0.00001, 2), ROUND([Dec-2020] * 0.00001, 2),
-ROUND([Jan-2021] * 0.00001, 2), ROUND([Feb-2021] * 0.00001, 2)
+ROUND([Jan-2021] * 0.00001, 2), ROUND([Feb-2021] * 0.00001, 2), ROUND([Mar-2021] * 0.00001, 2)
 FROM #TransactionFee_Output;  
   
 /* TABLE 5 */  
 SELECT 'Transaction Fee for Guesthouses In Rs (Lakhs)' AS Title;  
-SELECT Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]
+SELECT Title, [Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TransactionFee_Output_RoundOff  
 WHERE  
 Flg IN (1, 2, 3)  
 ORDER BY  
-Flg ASC, [Feb-2021] DESC;  
+Flg ASC, [Mar-2021] DESC;  
   
 /* TABLE 6 */  
 SELECT 'Transaction Fee for Hotels In Rs (Lakhs)' AS Title;  
-SELECT Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]  
+SELECT Title, [Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TransactionFee_Output_RoundOff  
 WHERE  
 Flg IN (4, 5, 6)  
 ORDER BY  
-Flg ASC, [Feb-2021] DESC;  
+Flg ASC, [Mar-2021] DESC;  
   
 /* TABLE 5 + TABLE 6 */  
   
-SELECT 'Gross Transaction Fee In Rs (Lakhs)' AS Title,  
-SUM([Feb-2021]) AS [Feb-2021], SUM([Jan-2021]) AS [Jan-2021], SUM([Dec-2020]) AS [Dec-2020], SUM([Nov-2020]) AS [Nov-2020], SUM([Oct-2020]) AS [Oct-2020],
-SUM([Sep-2020]) AS [Sep-2020], SUM([Aug-2020]) AS [Aug-2020], SUM([Jul-2020]) AS [Jul-2020], SUM([Jun-2020]) AS [Jun-2020], SUM([May-2020]) AS [May-2020], SUM([Apr-2020]) AS [Apr-2020],   
-SUM([Mar-2020]) AS [Mar-2020]
+SELECT 'Gross Transaction Fee In Rs (Lakhs)' AS Title,
+SUM([Mar-2021]) AS [Mar-2021], SUM([Feb-2021]) AS [Feb-2021], SUM([Jan-2021]) AS [Jan-2021], SUM([Dec-2020]) AS [Dec-2020], SUM([Nov-2020]) AS [Nov-2020], SUM([Oct-2020]) AS [Oct-2020],
+SUM([Sep-2020]) AS [Sep-2020], SUM([Aug-2020]) AS [Aug-2020], SUM([Jul-2020]) AS [Jul-2020], SUM([Jun-2020]) AS [Jun-2020], SUM([May-2020]) AS [May-2020], SUM([Apr-2020]) AS [Apr-2020]
 FROM #TransactionFee_Output_RoundOff  
 WHERE  
 Flg IN (3, 6);  
@@ -2196,29 +2167,25 @@ Flg IN (3, 6);
 /* TABLE 7 */  
 SELECT 'Hotel Room Nights' AS Title;  
 SELECT MasterClientName,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TDRClient T  
-ORDER BY Flg ASC, [Feb-2021] DESC;  
+ORDER BY Flg ASC, [Mar-2021] DESC;  
   
-CREATE TABLE #Booking_Count(Title NVARCHAR(100), Flg INT, Id INT IDENTITY(1, 1),
-[Mar-2020] INT,  
-[Apr-2020] INT, [May-2020] INT, [Jun-2020] INT, [Jul-2020] INT, [Aug-2020] INT, [Sep-2020] INT, [Oct-2020] INT, [Nov-2020] INT, [Dec-2020] INT, [Jan-2021] INT, [Feb-2021] INT);
+CREATE TABLE #Booking_Count(Title NVARCHAR(100), Flg INT, Id INT IDENTITY(1, 1),  
+[Apr-2020] INT, [May-2020] INT, [Jun-2020] INT, [Jul-2020] INT, [Aug-2020] INT, [Sep-2020] INT, [Oct-2020] INT, [Nov-2020] INT, [Dec-2020] INT, [Jan-2021] INT, [Feb-2021] INT, [Mar-2021] INT);
   
 /*Flg IN (6, 7) - GH */  
   
 INSERT INTO #Booking_Count  
-SELECT MasterClientName, 1,  
-[Mar-2020],  
-[Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021]
+SELECT MasterClientName, 1,
+[Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021], [Mar-2021]
 FROM #Temp_BookingCnt  
 WHERE Flg IN (6, 7)  
 ORDER BY Flg, Id;  
   
 INSERT INTO #Booking_Count  
 SELECT 'Total', 2,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #Temp_BookingCnt  
 WHERE Flg IN (6, 7);  
   
@@ -2226,32 +2193,27 @@ WHERE Flg IN (6, 7);
   
 INSERT INTO #Booking_Count  
 SELECT MasterClientName, 3,  
-[Mar-2020], [Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021]
+[Apr-2020], [May-2020], [Jun-2020], [Jul-2020], [Aug-2020], [Sep-2020], [Oct-2020], [Nov-2020], [Dec-2020], [Jan-2021], [Feb-2021], [Mar-2021]
 FROM #Temp_BookingCnt  
 WHERE Flg IN (2, 3)  
 ORDER BY Flg, Id;  
   
 INSERT INTO #Booking_Count  
 SELECT 'Total', 4,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #Temp_BookingCnt  
 WHERE Flg IN (2, 3);  
   
 /* TABLE 8 */  
 SELECT 'No. of GH Bookings' AS Title;  
-SELECT Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]  
+SELECT Title, [Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #Booking_Count  
 WHERE Flg IN (1, 2)  
 ORDER BY Id;  
   
 /* TABLE 9 */  
 SELECT 'No. of Hotel Booking' AS Title;  
-SELECT Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]  
+SELECT Title, [Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #Booking_Count  
 WHERE Flg IN (3, 4)  
 ORDER BY Flg, Id;  
@@ -2261,73 +2223,65 @@ ORDER BY Flg, Id;
 /* Hotel Details Report - #Start */  
   
 SELECT '' AS C99,
-'Feb-21' AS C12, 'Jan-21' AS C11, 'Dec-20' AS C10, 'Nov-20' AS C09, 'Oct-20' AS C08, 'Sep-20' AS C07, 'Aug-20' AS C06, 'Jul-20' AS C05, 'Jun-20' AS C16, 'May-20' AS C15, 'Apr-20' AS C14,  
-'Mar-20' AS C13;
+'Mar-21' AS C13, 'Feb-21' AS C12, 'Jan-21' AS C11, 'Dec-20' AS C10, 'Nov-20' AS C09, 'Oct-20' AS C08, 'Sep-20' AS C07, 'Aug-20' AS C06, 'Jul-20' AS C05, 'Jun-20' AS C16, 'May-20' AS C15, 'Apr-20' AS C14;
   
 /* TABLE 1 */  
 SELECT 'GTV In Rs (Lakhs)' AS Title;  
 SELECT 'Chain Hotels' AS Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TEMPMONTH117  
 WHERE Flg = 2  
 UNION ALL  
 SELECT 'Non Chain Hotels' AS Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TEMPMONTH117  
 WHERE Flg = 5  
 UNION ALL  
 SELECT 'Total' AS Title,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TEMPMONTH117  
 WHERE Flg = 1;  
   
 /* TABLE 2 */  
 SELECT 'HB - Revenue In Rs (Lakhs)' AS Title;  
 SELECT PropertyCategory,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020], [Mar-2020]
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TDRMARKUP_Category_New  
 ORDER BY Flg, PropertyCategory;  
   
 /* TABLE 3 */  
 SELECT 'Hotel Room Nights' AS Title;  
 SELECT PropertyCategory,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020], [Mar-2020]
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TDRCatgy  
 WHERE PropertyCategory = 'C P P'  
 UNION ALL  
 SELECT PropertyCategory,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020], [Mar-2020]
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TDRCatgy  
 WHERE PropertyCategory = 'G H'  
 UNION ALL  
-SELECT 'External',  
-SUM([Feb-2021]) AS [Feb-2021], SUM([Jan-2021]) AS [Jan-2021], SUM([Dec-2020]) AS [Dec-2020],
+SELECT 'External',
+SUM([Mar-2021]) AS [Mar-2021], SUM([Feb-2021]) AS [Feb-2021], SUM([Jan-2021]) AS [Jan-2021], SUM([Dec-2020]) AS [Dec-2020],
 SUM([Nov-2020]) AS [Nov-2020], SUM([Oct-2020]) AS [Oct-2020], SUM([Sep-2020]) AS [Sep-2020], SUM([Aug-2020]) AS [Aug-2020],
-SUM([Jul-2020]) AS [Jul-2020], SUM([Jun-2020]) AS [Jun-2020], SUM([May-2020]) AS [May-2020], SUM([Apr-2020]) AS [Apr-2020],  
-SUM([Mar-2020]) AS [Mar-2020]
+SUM([Jul-2020]) AS [Jul-2020], SUM([Jun-2020]) AS [Jun-2020], SUM([May-2020]) AS [May-2020], SUM([Apr-2020]) AS [Apr-2020]
 FROM #TDRCatgy  
 WHERE PropertyCategory IN ('B O K', 'O Y O', 'External')  
 UNION ALL  
 SELECT 'Total',  
-SUM([Feb-2021]) AS [Feb-2021], SUM([Jan-2021]) AS [Jan-2021], SUM([Dec-2020]) AS [Dec-2020],
+SUM([Mar-2021]) AS [Mar-2021], SUM([Feb-2021]) AS [Feb-2021], SUM([Jan-2021]) AS [Jan-2021], SUM([Dec-2020]) AS [Dec-2020],
 SUM([Nov-2020]) AS [Nov-2020], SUM([Oct-2020]) AS [Oct-2020], SUM([Sep-2020]) AS [Sep-2020], SUM([Aug-2020]) AS [Aug-2020],
-SUM([Jul-2020]) AS [Jul-2020], SUM([Jun-2020]) AS [Jun-2020], SUM([May-2020]) AS [May-2020], SUM([Apr-2020]) AS [Apr-2020],  
-SUM([Mar-2020]) AS [Mar-2020]
+SUM([Jul-2020]) AS [Jul-2020], SUM([Jun-2020]) AS [Jun-2020], SUM([May-2020]) AS [May-2020], SUM([Apr-2020]) AS [Apr-2020]
 FROM #TDRCatgy  
 WHERE PropertyCategory IN ('C P P', 'B O K', 'O Y O', 'External', 'G H');  
   
 CREATE TABLE #WithCommission_ClientWise(MasterClientId BIGINT, MasterClientName VARCHAR(100), Id INT IDENTITY(1, 1), Flg INT,
-[Mar-2020] DECIMAL(27, 2),  
 [Apr-2020] DECIMAL(27, 2), [May-2020] DECIMAL(27, 2), [Jun-2020] DECIMAL(27, 2), [Jul-2020] DECIMAL(27, 2), [Aug-2020] DECIMAL(27, 2), [Sep-2020] DECIMAL(27, 2),
-[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2));
+[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2), [Mar-2021] DECIMAL(27, 2));
   
 INSERT INTO #WithCommission_ClientWise  
 SELECT T.MasterClientId, M.ClientName, 2,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM  
 #TEMPMONTH16 T  
 LEFT OUTER JOIN WRBHBMasterClientManagement M WITH(NOLOCK)ON T.MasterClientId = M.Id  
@@ -2337,12 +2291,11 @@ T.MasterClientId IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE Acti
 GROUP BY  
 T.MasterClientId, M.ClientName  
 ORDER BY  
-SUM([Feb-2021]) DESC;  
+SUM([Mar-2021]) DESC;  
   
 INSERT INTO #WithCommission_ClientWise  
 SELECT 0, 'Other Clients', 3,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM  
 #TEMPMONTH16 T  
 LEFT OUTER JOIN WRBHBMasterClientManagement M WITH(NOLOCK)ON T.MasterClientId = M.Id  
@@ -2352,14 +2305,12 @@ T.MasterClientId NOT IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE 
   
   
 CREATE TABLE #GTV_MasterClientWise(MasterClientId BIGINT, MasterClientName VARCHAR(100), Id INT IDENTITY(1, 1), Flg INT,
-[Mar-2020] DECIMAL(27, 2),  
 [Apr-2020] DECIMAL(27, 2), [May-2020] DECIMAL(27, 2), [Jun-2020] DECIMAL(27, 2), [Jul-2020] DECIMAL(27, 2), [Aug-2020] DECIMAL(27, 2), [Sep-2020] DECIMAL(27, 2),
-[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2));
+[Oct-2020] DECIMAL(27, 2), [Nov-2020] DECIMAL(27, 2), [Dec-2020] DECIMAL(27, 2), [Jan-2021] DECIMAL(27, 2), [Feb-2021] DECIMAL(27, 2), [Mar-2021] DECIMAL(27, 2));
   
 INSERT INTO #GTV_MasterClientWise  
 SELECT T.MasterClientId, M.ClientName, 1,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TEMPMONTH16 T  
 LEFT OUTER JOIN WRBHBMasterClientManagement M ON T.MasterClientId = M.Id  
 WHERE  
@@ -2369,8 +2320,7 @@ M.ClientName, T.MasterClientId;
   
 INSERT INTO #GTV_MasterClientWise  
 SELECT 0, 'Other Clients', 2,
-SUM([Mar-2020]),  
-SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021])
+SUM([Apr-2020]), SUM([May-2020]), SUM([Jun-2020]), SUM([Jul-2020]), SUM([Aug-2020]), SUM([Sep-2020]), SUM([Oct-2020]), SUM([Nov-2020]), SUM([Dec-2020]), SUM([Jan-2021]), SUM([Feb-2021]), SUM([Mar-2021])
 FROM #TEMPMONTH16 T  
 LEFT OUTER JOIN WRBHBMasterClientManagement M ON T.MasterClientId = M.Id  
 WHERE  
@@ -2379,6 +2329,7 @@ T.MasterClientId NOT IN (SELECT MasterClientId FROM HBAnalysis_ClientList WHERE 
 /* TABLE 4 */  
 SELECT 'Hotels Giving Commissions Percentage' AS Title;  
 SELECT T1.MasterClientName,
+CASE WHEN T1.[Mar-2021] <> 0 THEN CAST(CAST(ROUND(((T1.[Mar-2021] * 10000) / T2.[Mar-2021]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [Mar-2021],
 CASE WHEN T1.[Feb-2021] <> 0 THEN CAST(CAST(ROUND(((T1.[Feb-2021] * 10000) / T2.[Feb-2021]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [Feb-2021],
 CASE WHEN T1.[Jan-2021] <> 0 THEN CAST(CAST(ROUND(((T1.[Jan-2021] * 10000) / T2.[Jan-2021]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [Jan-2021],
 CASE WHEN T1.[Dec-2020] <> 0 THEN CAST(CAST(ROUND(((T1.[Dec-2020] * 10000) / T2.[Dec-2020]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [Dec-2020],
@@ -2389,8 +2340,7 @@ CASE WHEN T1.[Aug-2020] <> 0 THEN CAST(CAST(ROUND(((T1.[Aug-2020] * 10000) / T2.
 CASE WHEN T1.[Jul-2020] <> 0 THEN CAST(CAST(ROUND(((T1.[Jul-2020] * 10000) / T2.[Jul-2020]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [Jul-2020],  
 CASE WHEN T1.[Jun-2020] <> 0 THEN CAST(CAST(ROUND(((T1.[Jun-2020] * 10000) / T2.[Jun-2020]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [Jun-2020],  
 CASE WHEN T1.[May-2020] <> 0 THEN CAST(CAST(ROUND(((T1.[May-2020] * 10000) / T2.[May-2020]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [May-2020],  
-CASE WHEN T1.[Apr-2020] <> 0 THEN CAST(CAST(ROUND(((T1.[Apr-2020] * 10000) / T2.[Apr-2020]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [Apr-2020],  
-CASE WHEN T1.[Mar-2020] <> 0 THEN CAST(CAST(ROUND(((T1.[Mar-2020] * 10000) / T2.[Mar-2020]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [Mar-2020]
+CASE WHEN T1.[Apr-2020] <> 0 THEN CAST(CAST(ROUND(((T1.[Apr-2020] * 10000) / T2.[Apr-2020]) * 0.01, 0) AS INT) AS VARCHAR) + '%' ELSE '0%' END AS [Apr-2020]
 FROM #WithCommission_ClientWise T1  
 LEFT OUTER JOIN #GTV_MasterClientWise T2 WITH(NOLOCK)ON T1.MasterClientId = T2.MasterClientId  
 ORDER BY  
@@ -2398,36 +2348,31 @@ T1.Flg, T1.Id;
   
 /* TABLE 5 */  
 SELECT 'GTV with Margin In Rs (Lakhs)' AS Title;  
-SELECT MasterClientName,
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]  
+SELECT MasterClientName, [Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #GTVTOTALCLIENT  
 WHERE MarkupFlg IN (1, 2, 3)  
-ORDER BY MarkupFlg ASC, [Feb-2021] DESC;  
+ORDER BY MarkupFlg ASC, [Mar-2021] DESC;  
   
 /* TABLE 6 */  
 SELECT 'GTV without Margin In Rs (Lakhs)' AS Title;  
 SELECT MasterClientName,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #GTVTOTALCLIENT  
 WHERE MarkupFlg IN (4, 5, 6)  
-ORDER BY MarkupFlg ASC, [Feb-2021] DESC;  
+ORDER BY MarkupFlg ASC, [Mar-2021] DESC;  
   
 /* TABLE 7 */  
 SELECT MasterClientName,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #GTVTOTALCLIENT  
 WHERE MarkupFlg = 7;  
   
 /* TABLE 8 */  
 SELECT 'Chain Hotels - Room Nights' AS Title;  
 SELECT MasterPropertyName,  
-[Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020],  
-[Mar-2020]  
+[Mar-2021], [Feb-2021], [Jan-2021], [Dec-2020], [Nov-2020], [Oct-2020], [Sep-2020], [Aug-2020], [Jul-2020], [Jun-2020], [May-2020], [Apr-2020]
 FROM #TDR T  
-ORDER BY Flg ASC, [Feb-2021] DESC;  
+ORDER BY Flg ASC, [Mar-2021] DESC;  
   
   
 /* Hotel Details Report - #End */  
